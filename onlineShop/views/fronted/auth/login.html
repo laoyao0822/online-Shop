@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">1
+    <title>Title</title>
+</head>
+<body>
+<form id="form"  method="post">
+   <br> username<input type="text" id="name">
+    <br>password<input type="password" id="password">
+    <div><input type="button" value="submit" id="login">您还不是我们的会员？<a href="/login/register" >立即注册</a></div>
+    <div id="checkPassword"></div>
+</form>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+</script>
+<script>
+    if(typeof jQuery=="undefined"){
+        window.alert("shibai")
+    }
+    login.onclick=function (){
+        $.ajax({
+            type:"GET",
+            url:"/login/try",
+            async: true,
+            data:{"method":"name","name":$("#name").val(),"password":$("#password").val()},
+            success:function (data) {
+                if(data=="right"){
+                    alert("登录成功·")
+                    window.location.replace("/index")
+                }else {
+                    $("#checkPassword").text("password or username wrong")
+                }
+            },
+            error: function (result) {
+            alert(result)
+            }
+        })
+    }
+</script>
+</body>
+</html>

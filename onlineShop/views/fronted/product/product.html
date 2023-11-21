@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Name}}</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<table>
+    <tr>{{.Name}}</tr>
+    <tr><td><img  id="productImg" src=""  width="200",height="200"> </td><td>{{.Profile}}</td></tr>
+    <tr>
+        <td><input type="button" value="add to cart" id="ATCart"></td>
+    </tr>
+    <tr>
+        <td>
+
+
+
+
+
+
+        </td>
+    </tr>
+    <tr><td>products profile</td></tr>
+    <tr><td><img  id="profileImg" src=""  width="200",height="200"> </td></tr>
+</table>
+<script>
+    var url=window.location.pathname;
+    var id = url.substring(url.lastIndexOf('/') + 1);
+   document.getElementById("productImg").setAttribute("src","/productImg/Show/"+id+".jpg");
+    document.getElementById("profileImg").setAttribute("src","/productImg/Desc/"+id+".jpg");
+    ATCart.onclick=function (){
+        $.ajax({
+            type:"GET",
+            url:"/product/addToCart",
+            async: true,
+            data:{"id":id},
+            success:function (data) {
+                if(data=="right"){
+                    alert("添加成功·")
+                }else if(data=="notLogin") {
+                    alert("not Login")
+                }else if(data=="idErr") {
+                    alert("id Err")
+                }
+            },
+            error: function (result) {
+                alert(result)
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

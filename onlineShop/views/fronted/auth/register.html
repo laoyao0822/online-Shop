@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">1
+    <title>Title</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+</head>
+<body>
+
+<form id="form"  method="post">
+
+    <br>name<input type="text" id="name" ></br>
+    <br>password<input type="password" id="password"></br>
+    <br>verify password<input type="password" id="password2" onblur="check2pwd()"><h id="p2"></h>
+    <br>email<input type="text" id="email">
+   <br> <input type="button" value="submit" id="submit"></button>
+</form>
+<script>
+    var pwd=false;
+    function check2pwd() {
+        if($("#password").val()==""){
+            $("#p2").text("password could not be null");
+        }else if($("#password").val()!=$("#password2").val()) {
+            $("#p2").text("Entered passwords differ");
+        } else {
+            $("#p2").text("");
+            pwd=true;
+        }
+    }
+    submit.onclick=function() {
+        var name =$("#name").val();
+        var password=$("#password").val();
+        var email=$("#email").val();
+        if(name!=""&password!=""&email!=""){
+            $.post("/login/register/try",
+                {"name":name,"password":password,"email":email},
+                function (data) {
+                    if(data=="yes"){
+                        alert("register successful")
+                        window.location.replace("/index")
+                    }else if(data=="repeat"){
+                        alert("name is used")
+                    }
+                }
+            )
+        }
+    }
+</script>
+</body>
+</html>
